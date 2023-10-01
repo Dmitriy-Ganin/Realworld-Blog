@@ -1,38 +1,38 @@
-import React, { useEffect } from 'react';
-import classNames from 'classnames';
+import { useEffect } from 'react'
+import classNames from 'classnames'
 // Link - создаёт ссылку на компонент...для Route
 // useHistory - нужен, чтобы передавать id компонента
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 // useSelector - достаёт данные из стейта в редукторе
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 
 // выход
-import { logOut } from '../../Reducer/slices/user-slice';
-import { getUser } from '../../Service/platformAPI';
+import { logOut } from '../../Reducer/slices/user-slice'
+import { getUser } from '../../Service/platformAPI'
 
-import styles from './Header.module.scss';
+import styles from './Header.module.scss'
 
-const link = classNames(styles.link);
-const signUp = classNames(link, styles.signUp);
-const createArticle = classNames(link, styles['create-article']);
-const logOutBtn = classNames(link, styles['log-out']);
+const link = classNames(styles.link)
+const signUp = classNames(link, styles.signUp)
+const createArticle = classNames(link, styles['create-article'])
+const logOutBtn = classNames(link, styles['log-out'])
 
 function Header() {
-  const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  const { token } = user;
-  const avatar = user.image ? user.image : 'https://static.productionready.io/images/smiley-cyrus.jpg';
+  const dispatch = useDispatch()
+  const { user } = useSelector((state) => state.user)
+  const { token } = user
+  const avatar = user.image ? user.image : 'https://static.productionready.io/images/smiley-cyrus.jpg'
 
   const onLogOut = () => {
-    localStorage.removeItem('user');
-    dispatch(logOut());
-  };
+    localStorage.removeItem('user')
+    dispatch(logOut())
+  }
 
   useEffect(() => {
     if (token) {
-      dispatch(getUser(token));
+      dispatch(getUser(token))
     }
-  }, []);
+  }, [])
 
   const headerAuthorization = (
     <ul className={styles.authorization}>
@@ -47,7 +47,7 @@ function Header() {
         </Link>
       </li>
     </ul>
-  );
+  )
 
   const headerMenu = (
     <div className={styles.menu}>
@@ -62,7 +62,7 @@ function Header() {
         Log Out
       </Link>
     </div>
-  );
+  )
 
   return (
     <div className={styles.main}>
@@ -71,7 +71,7 @@ function Header() {
       </Link>
       {token ? headerMenu : headerAuthorization}
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

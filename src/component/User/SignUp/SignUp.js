@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
-import classNames from 'classnames';
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useForm } from 'react-hook-form'
+import classNames from 'classnames'
 
-import { registerUser } from '../../../Service/platformAPI';
-import { setErrors } from '../../../Reducer/slices/user-slice';
-import { setSubmit } from '../../../Reducer/slices/status-slice';
+import { registerUser } from '../../../Service/platformAPI'
+import { setErrors } from '../../../Reducer/slices/user-slice'
+import { setSubmit } from '../../../Reducer/slices/status-slice'
 
-import styles from './SignUp.module.scss';
+import styles from './SignUp.module.scss'
 
 function SignUp() {
   const {
@@ -18,27 +18,27 @@ function SignUp() {
     getValues,
     setValue,
     watch,
-  } = useForm();
+  } = useForm()
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const servErr = useSelector((state) => state.user.errors);
-  const { user } = useSelector((state) => state.user);
+  const servErr = useSelector((state) => state.user.errors)
+  const { user } = useSelector((state) => state.user)
 
   const onSubmit = (data) => {
-    dispatch(setSubmit(false));
-    dispatch(registerUser(data));
-  };
+    dispatch(setSubmit(false))
+    dispatch(registerUser(data))
+  }
 
-  const navigate = useNavigate();
-  const home = useSelector((state) => state.status.home);
+  const navigate = useNavigate()
+  const home = useSelector((state) => state.status.home)
   useEffect(() => {
-    dispatch(setErrors(null));
-    if (home) navigate('/');
-  }, [home, dispatch, navigate]);
+    dispatch(setErrors(null))
+    if (home) navigate('/')
+  }, [home, dispatch, navigate])
 
-  const { submitActive } = useSelector((state) => state.status);
-  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn);
+  const { submitActive } = useSelector((state) => state.status)
+  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn)
 
   return (
     <div className={styles.page}>
@@ -55,7 +55,6 @@ function SignUp() {
               type="text"
               id="name"
               placeholder="Username"
-              autoFocus
               style={errors.username && { outline: '1px solid #F5222D' }}
               {...register('username', {
                 required: 'Your username can`t be empty.',
@@ -87,7 +86,7 @@ function SignUp() {
               id="email"
               placeholder="Email address"
               onKeyUp={() => {
-                setValue('email', watch('email').toLowerCase());
+                setValue('email', watch('email').toLowerCase())
               }}
               style={errors.email && { outline: '1px solid #F5222D' }}
               {...register('email', {
@@ -144,8 +143,8 @@ function SignUp() {
               {...register('repeatPassword', {
                 required: 'Your password can`t be empty.',
                 validate: (value) => {
-                  const { password } = getValues();
-                  return password === value || 'Passwords must match!';
+                  const { password } = getValues()
+                  return password === value || 'Passwords must match!'
                 },
               })}
             />
@@ -181,7 +180,7 @@ function SignUp() {
         </span>
       </form>
     </div>
-  );
+  )
 }
 
-export default SignUp;
+export default SignUp

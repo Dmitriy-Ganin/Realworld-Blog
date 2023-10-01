@@ -1,39 +1,37 @@
-import React from 'react';
-import classNames from 'classnames';
-import { useDispatch } from 'react-redux';
+import classNames from 'classnames'
+import { useDispatch } from 'react-redux'
 
-import styles from '../Article/CreateArticle/CreateArticle.module.scss';
-import { addTag, deleteTag, editTag } from '../../Reducer/slices/tags-slice';
+import styles from '../Article/CreateArticle/CreateArticle.module.scss'
+import { addTag, deleteTag, editTag } from '../../Reducer/slices/tags-slice'
 
-const tagStyle = classNames(styles.input, styles.tag);
-const deleteBtn = classNames(styles.btn, styles.delete);
-const addBtn = classNames(styles.btn, styles.add);
+const tagStyle = classNames(styles.input, styles.tag)
+const deleteBtn = classNames(styles.btn, styles.delete)
+const addBtn = classNames(styles.btn, styles.add)
 
 function Tag({ id, idx, tagsLength, value }) {
-  const lastOne = idx === tagsLength - 1;
-  const vals = value.length > 0 ? '' : 'disabled';
+  const lastOne = idx === tagsLength - 1
+  const vals = value.length > 0 ? '' : 'disabled'
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onDelete = () => {
-    dispatch(deleteTag(id));
-  };
+    dispatch(deleteTag(id))
+  }
 
   const onAdd = () => {
-    dispatch(addTag());
-    // console.log(valb.target.value)
-  };
+    dispatch(addTag())
+  }
   const onLabelChange = (val) => {
-    console.log(val);
+    console.log(val)
     if (val !== undefined) {
       dispatch(
         editTag({
           id,
           label: val.trim(),
         })
-      );
+      )
     }
-  };
+  }
 
   return (
     <>
@@ -55,7 +53,7 @@ function Tag({ id, idx, tagsLength, value }) {
         </button>
       )}
     </>
-  );
+  )
 }
 
-export default Tag;
+export default Tag

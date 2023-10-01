@@ -1,75 +1,75 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from 'react';
-import ReactMarkdown from 'react-markdown';
-import { Spin } from 'antd';
+import { useEffect, useState } from 'react'
+import ReactMarkdown from 'react-markdown'
+import { Spin } from 'antd'
 // useNavigate - новый useHistory
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
-import classNames from 'classnames';
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { v4 as uuidv4 } from 'uuid'
+import classNames from 'classnames'
 
-import { deleteArticle, fetchArticle, fetchArticles, setLike } from '../../../Service/platformAPI';
-import { setGoTo } from '../../../Reducer/slices/status-slice';
+import { deleteArticle, fetchArticle, fetchArticles, setLike } from '../../../Service/platformAPI'
+import { setGoTo } from '../../../Reducer/slices/status-slice'
 
-import styles from './SingleArticle.module.scss';
+import styles from './SingleArticle.module.scss'
 
 function SingleArticle({ article }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { slug } = useParams();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { slug } = useParams()
 
-  const { location } = useSelector((state) => state.status);
-  const { user } = useSelector((state) => state.user);
-  const { username, token } = user;
+  const { location } = useSelector((state) => state.status)
+  const { user } = useSelector((state) => state.user)
+  const { username, token } = user
 
-  const cardStyle = location === 'articles-list' ? styles.preview : classNames(styles.preview, styles.singleCard);
+  const cardStyle = location === 'articles-list' ? styles.preview : classNames(styles.preview, styles.singleCard)
 
-  const [modal, setModal] = useState(false);
-  const [avatar, setAvatar] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const title = article.title.length < 1 ? 'NO TITLED ARTICLE' : article.title;
-  const articlePath = `/articles/${article.slug}`;
-  const { page, limit } = useSelector((state) => state.articles);
-
-  useEffect(() => {
-    if (location === 'article-page') dispatch(setGoTo(''));
-  }, []);
+  const [modal, setModal] = useState(false)
+  const [avatar, setAvatar] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const title = article.title.length < 1 ? 'NO TITLED ARTICLE' : article.title
+  const articlePath = `/articles/${article.slug}`
+  const { page, limit } = useSelector((state) => state.articles)
 
   useEffect(() => {
-    setAvatar(article.avatarPath);
-  }, [article.avatarPath]);
+    if (location === 'article-page') dispatch(setGoTo(''))
+  }, [])
+
+  useEffect(() => {
+    setAvatar(article.avatarPath)
+  }, [article.avatarPath])
 
   const printTags = (post) =>
     post.tags.map((tag) => {
-      const tagStr = String(tag);
-      if (tagStr.length > 20 || tagStr.length < 1) return null;
+      const tagStr = String(tag)
+      if (tagStr.length > 20 || tagStr.length < 1) return null
       return (
         <li key={uuidv4()} className={styles.tag}>
           {tagStr}
         </li>
-      );
-    });
+      )
+    })
 
   const onLike = () => {
     if (token) {
-      dispatch(setLike(token, article.slug, article.liked));
+      dispatch(setLike(token, article.slug, article.liked))
       location === 'article-page'
         ? dispatch(fetchArticle(article.slug, token))
-        : dispatch(fetchArticles(page, limit, token));
+        : dispatch(fetchArticles(page, limit, token))
     }
-  };
+  }
 
   const onDelete = () => {
-    dispatch(deleteArticle(token, slug));
-    navigate('/');
-  };
-  const likeStyl = classNames(styles.blackLike, token && styles.activeLike, article.liked && styles.redLike);
+    dispatch(deleteArticle(token, slug))
+    navigate('/')
+  }
+  const likeStyl = classNames(styles.blackLike, token && styles.activeLike, article.liked && styles.redLike)
 
-  const editLink = `/articles/${slug}/edit`;
-  const deleteBtn = classNames(styles.btn, styles.delete);
-  const editBtn = classNames(styles.btn, styles.edit);
-  const yesBtn = classNames(styles.btn, styles.yes);
-  const noBtn = classNames(styles.btn, styles.no);
+  const editLink = `/articles/${slug}/edit`
+  const deleteBtn = classNames(styles.btn, styles.delete)
+  const editBtn = classNames(styles.btn, styles.edit)
+  const yesBtn = classNames(styles.btn, styles.yes)
+  const noBtn = classNames(styles.btn, styles.no)
 
   return (
     <div className={styles.cardWrapper}>
@@ -99,7 +99,7 @@ function SingleArticle({ article }) {
               src={avatar}
               className={styles.avatar}
               onLoad={() => {
-                setLoading(false);
+                setLoading(false)
               }}
               onError={() => setAvatar('/no-avatar.png')}
             />
@@ -137,7 +137,7 @@ function SingleArticle({ article }) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default SingleArticle;
+export default SingleArticle

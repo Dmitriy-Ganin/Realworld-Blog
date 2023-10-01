@@ -1,8 +1,7 @@
-import React from 'react';
 // отображает дочерний маршрут, по текущему path
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import Header from '../Header/Header';
+import Header from '../Header/Header'
 
 function Layout() {
   return (
@@ -10,7 +9,7 @@ function Layout() {
       <Header />
       <Outlet />
     </>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

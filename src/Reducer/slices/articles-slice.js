@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const articlesSlice = createSlice({
   name: 'article',
@@ -10,25 +10,25 @@ const articlesSlice = createSlice({
   },
   reducers: {
     addArticles(state, action) {
-      state.articles = action.payload;
+      state.articles = action.payload
     },
     addArticle(state, action) {
-      state.articles = [action.payload];
+      state.articles = [action.payload]
     },
     addArticlesCount(state, action) {
-      state.articlesCount = action.payload;
+      state.articlesCount = action.payload
     },
     setPage(state, action) {
-      state.page = action.payload;
+      state.page = action.payload
     },
     setLimit(state, action) {
-      state.limit = action.payload;
+      state.limit = action.payload
     },
     setLiked(state, action) {
-      state.articles = state.articles.map((art) => (art.slug === action.payload.slug ? action.payload : art));
+      state.articles = state.articles.map((art) => (art.slug === action.payload.slug ? action.payload : art))
     },
   },
-});
+})
 
-export default articlesSlice.reducer;
-export const { addArticles, addArticlesCount, setPage, setLimit, addArticle, setLiked } = articlesSlice.actions;
+export default articlesSlice.reducer
+export const { addArticles, addArticlesCount, setPage, setLimit, addArticle, setLiked } = articlesSlice.actions

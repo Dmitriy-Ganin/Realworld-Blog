@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
+import { useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import classNames from 'classnames'
 
-import { registerUser } from '../../../Service/platformAPI';
-import { setErrors } from '../../../Reducer/slices/user-slice';
-import signUp from '../SignUp/SignUp.module.scss';
-import { setSubmit } from '../../../Reducer/slices/status-slice';
+import { registerUser } from '../../../Service/platformAPI'
+import { setErrors } from '../../../Reducer/slices/user-slice'
+import signUp from '../SignUp/SignUp.module.scss'
+import { setSubmit } from '../../../Reducer/slices/status-slice'
 
-import styles from './SignIn.module.scss';
+import styles from './SignIn.module.scss'
 
 function SignIn() {
   const {
@@ -18,26 +18,26 @@ function SignIn() {
     handleSubmit,
     setValue,
     watch,
-  } = useForm();
+  } = useForm()
 
-  const servErr = useSelector((state) => state.user.errors);
+  const servErr = useSelector((state) => state.user.errors)
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const onSubmit = (data) => {
-    dispatch(setSubmit(false));
-    dispatch(registerUser(data, true));
-  };
+    dispatch(setSubmit(false))
+    dispatch(registerUser(data, true))
+  }
 
-  const navigate = useNavigate();
-  const home = useSelector((state) => state.status.home);
+  const navigate = useNavigate()
+  const home = useSelector((state) => state.status.home)
   useEffect(() => {
-    dispatch(setErrors(null));
-    if (home) navigate('/');
-  }, [home, dispatch, navigate]);
+    dispatch(setErrors(null))
+    if (home) navigate('/')
+  }, [home, dispatch, navigate])
 
-  const { submitActive } = useSelector((state) => state.status);
-  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn);
+  const { submitActive } = useSelector((state) => state.status)
+  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn)
 
   return (
     <div className={styles.page}>
@@ -54,9 +54,8 @@ function SignIn() {
               type="email"
               id="email"
               placeholder="Email address"
-              autoFocus
               onKeyUp={() => {
-                setValue('email', watch('email').toLowerCase());
+                setValue('email', watch('email').toLowerCase())
               }}
               style={errors.email && { outline: '1px solid #F5222D' }}
               {...register('email', {
@@ -102,7 +101,7 @@ function SignIn() {
         </span>
       </form>
     </div>
-  );
+  )
 }
 
-export default SignIn;
+export default SignIn

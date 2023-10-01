@@ -1,32 +1,31 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
+import { useForm } from 'react-hook-form'
+import { useDispatch, useSelector } from 'react-redux'
+import classNames from 'classnames'
 
-import { updateUser } from '../../../Service/platformAPI';
-import signUp from '../SignUp/SignUp.module.scss';
-import { setSubmit } from '../../../Reducer/slices/status-slice';
+import { updateUser } from '../../../Service/platformAPI'
+import signUp from '../SignUp/SignUp.module.scss'
+import { setSubmit } from '../../../Reducer/slices/status-slice'
 
-import styles from './Profile.module.scss';
+import styles from './Profile.module.scss'
 
 function Profile() {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm();
+  } = useForm()
 
-  const { user } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
-  const servErr = useSelector((state) => state.user.errors);
+  const { user } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+  const servErr = useSelector((state) => state.user.errors)
 
   const onSubmit = (data) => {
-    dispatch(setSubmit(false));
-    dispatch(updateUser(data));
-  };
+    dispatch(setSubmit(false))
+    dispatch(updateUser(data))
+  }
 
-  const { submitActive } = useSelector((state) => state.status);
-  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn);
+  const { submitActive } = useSelector((state) => state.status)
+  const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn)
 
   return (
     <div className={styles.page}>
@@ -43,7 +42,6 @@ function Profile() {
                 id="name"
                 placeholder="Username"
                 defaultValue={user.username}
-                autoFocus
                 style={errors.username && { outline: '1px solid #F5222D' }}
                 {...register('username', {
                   required: 'Your username can`t be empty.',
@@ -145,7 +143,7 @@ function Profile() {
         </button>
       </form>
     </div>
-  );
+  )
 }
 
-export default Profile;
+export default Profile
