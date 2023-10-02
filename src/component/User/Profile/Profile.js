@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
+import { Navigate } from 'react-router-dom'
 import classNames from 'classnames'
 
 import { updateUser } from '../../../Service/platformAPI'
@@ -16,7 +17,9 @@ function Profile() {
   } = useForm()
 
   const { user } = useSelector((state) => state.user)
+
   const dispatch = useDispatch()
+
   const servErr = useSelector((state) => state.user.errors)
 
   const onSubmit = (data) => {
@@ -25,6 +28,12 @@ function Profile() {
   }
 
   const { submitActive } = useSelector((state) => state.status)
+  const { token } = useSelector((state) => state.user.user)
+
+  if (!token) {
+    return <Navigate to="/sign-in" />
+  }
+
   const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn)
 
   return (
