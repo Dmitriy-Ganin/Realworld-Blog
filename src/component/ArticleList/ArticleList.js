@@ -1,11 +1,12 @@
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Alert, Pagination, Spin } from 'antd'
+import { Pagination } from 'antd'
 
 import { fetchArticles } from '../../Service/platformAPI'
 import { setLimit, setPage } from '../../Reducer/slices/articles-slice'
 import { setLocation, setStatus, goHome } from '../../Reducer/slices/status-slice'
 import SingleArticle from '../Article/SingleArticle/SingleArticle'
+import Content from '../Content/Content'
 
 import styles from './ArticleList.module.scss'
 
@@ -30,37 +31,7 @@ function ArticleList() {
     </li>
   ))
 
-  const showContent = (stat) => {
-    switch (stat) {
-      case 'loading':
-        return <Spin size="large" />
-      case '404':
-        return (
-          <Alert
-            message="По Вашему запросу ничего не найдено"
-            description="Попробуйте изменить запрос"
-            type="warning"
-            showIcon
-          />
-        )
-      case 'error':
-        return <Alert message="Ошибка сервера" description="Попробуйте перезагрузить страницу" type="error" showIcon />
-      case 'offline':
-        return (
-          <Alert
-            className={styles.error}
-            message="У вас нет интернет соединения!"
-            description="Пожалуйста проверьте ваш кабель"
-            type="error"
-            showIcon
-          />
-        )
-      default:
-        return articlez
-    }
-  }
-
-  const content = showContent(status)
+  const error = Content(status)
 
   // eslint-disable-next-line no-shadow
   const onPaginationChange = (page) => {
@@ -77,7 +48,7 @@ function ArticleList() {
 
   return (
     <div className={styles.main}>
-      <ul className={styles.list}>{content}</ul>
+      <ul className={styles.list}>{error || articlez}</ul>
       {status !== 'error' && (
         <Pagination
           className={styles.pag}
