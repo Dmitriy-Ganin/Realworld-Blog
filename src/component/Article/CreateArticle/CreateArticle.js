@@ -36,7 +36,6 @@ function CreateArticle() {
       <Tag idx={idx} id={tag.id} value={tag.label} tagsLength={tags.length} />
     </li>
   ))
-  //console.log(tagz);
   const {
     register,
     formState: { errors },

@@ -6,6 +6,7 @@ import classNames from 'classnames'
 import { updateUser } from '../../../Service/platformAPI'
 import signUp from '../SignUp/SignUp.module.scss'
 import { setSubmit } from '../../../Reducer/slices/status-slice'
+import { signIn } from '../../Route/Route'
 
 import styles from './Profile.module.scss'
 
@@ -31,7 +32,7 @@ function Profile() {
   const { token } = useSelector((state) => state.user.user)
 
   if (!token) {
-    return <Navigate to="/sign-in" />
+    return <Navigate to={signIn} />
   }
 
   const submit = submitActive ? styles.submit : classNames(styles.submit, styles.disabledBtn)

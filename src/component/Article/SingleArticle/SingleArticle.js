@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import { Spin } from 'antd'
-// useNavigate - новый useHistory
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'

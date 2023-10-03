@@ -1,12 +1,8 @@
 import { useEffect } from 'react'
 import classNames from 'classnames'
-// Link - создаёт ссылку на компонент...для Route
-// useHistory - нужен, чтобы передавать id компонента
 import { Link } from 'react-router-dom'
-// useSelector - достаёт данные из стейта в редукторе
 import { useSelector, useDispatch } from 'react-redux'
 
-// выход
 import { logOut } from '../../Reducer/slices/user-slice'
 import { getUser } from '../../Service/platformAPI'
 
